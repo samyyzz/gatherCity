@@ -1,0 +1,23 @@
+{
+  "name": "@metaverse/db",
+  "version": "1.0.0",
+  "main": "index.js",
+  "private":true,
+  "exports": {
+    "./prisma*": "./src/*.ts"
+  },
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "prisma": "^6.4.1",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.4.1"
+  }
+}
