@@ -4,7 +4,7 @@
   "main": "index.js",
   "private":true,
   "exports": {
-    "./prisma*": "./src/*.ts"
+    "./*": "./src/*.ts"
   },
   "scripts": {
     "build": "tsc -b"
