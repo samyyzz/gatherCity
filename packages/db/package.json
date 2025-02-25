@@ -1,10 +1,11 @@
 {
   "name": "@metaverse/db",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "private":true,
+  "types": "dist/index.d.ts",
   "exports": {
-    "./*": "./src/*.ts"
+    "./*": "./dist/index.js"
   },
   "scripts": {
     "build": "tsc -b"
