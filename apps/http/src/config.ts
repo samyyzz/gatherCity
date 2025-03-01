@@ -1,1 +1,2 @@
-export const JWT_SECRET = "asdasd123lffkbo4";
+export const JWT_SECRET_ADMIN = "ADMINASDASD123123pgwpg";
+export const JWT_SECRET_USER = "USERDLHNRPHU4asdd-69875";
