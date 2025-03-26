@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { UpdateMetadataSchema } from "../../types";
+import { Metadata, UpdateMetadataSchema } from "../../types";
 import { userMiddleware } from "../../middleware/user";
 import { prisma } from "@metaverse/db/prisma";
 
@@ -43,9 +43,10 @@ userRouter.get("/metadata/bulk", async (req, res) => {
         id: true,
       },
     });
+    console.log("userMetadata :", metadata);
 
     res.json({
-      avatars: metadata.map((data) => ({
+      avatars: metadata.map((data: Metadata) => ({
         avatarId: data.avatar?.id,
         userId: data.id,
       })),

@@ -3,7 +3,7 @@ import { userRouter } from "./user";
 import { adminRouter } from "./admin";
 import { spaceRouter } from "./space";
 import { prisma } from "@metaverse/db/prisma";
-import { SigninSchema, SignupSchema } from "../../types";
+import { Avatar, Element, SigninSchema, SignupSchema } from "../../types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET_USER } from "../../config";
@@ -97,7 +97,7 @@ router.get("/avatars", async (req, res) => {
     res.status(400).json({ message: "Failed to get avatars" });
     return;
   }
-  const response = avatars.map((avr) => ({
+  const response = avatars.map((avr: Avatar) => ({
     id: avr.id,
     name: avr.name,
     imageUrl: avr.imageUrl,
@@ -108,7 +108,7 @@ router.get("/avatars", async (req, res) => {
 router.get("/elements", async (req, res) => {
   try {
     const elements = await prisma.element.findMany();
-    const response = elements.map((elm) => ({
+    const response = elements.map((elm: Element) => ({
       id: elm.id,
       height: elm.height,
       width: elm.width,

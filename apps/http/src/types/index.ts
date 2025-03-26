@@ -9,6 +9,42 @@ declare global {
   }
 }
 
+export interface Avatar {
+  id: string;
+  name: string;
+  imageUrl: string;
+}
+
+export interface Element {
+  id: string;
+  height: number;
+  width: number;
+  static: string;
+  imageUrl: string;
+}
+
+export interface SpaceElement {
+  id: string;
+  elementId: string;
+  spaceId: string;
+  x: number;
+  y: number;
+  element?: Element;
+}
+export interface Metadata {
+  avatar: {
+    id: string
+  };
+  id: string;
+}
+export interface Space {
+  id: string;
+  name: string;
+  width: number;
+  height: number;
+  thumbnail: string;
+}
+
 export const SignupSchema = z.object({
   username: z.string(),
   password: z.string(),

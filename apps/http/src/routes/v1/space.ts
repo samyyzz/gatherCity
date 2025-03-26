@@ -3,6 +3,8 @@ import {
   AddElementSchema,
   CreateSpaceSchema,
   DeleteElementSchema,
+  Space,
+  SpaceElement,
 } from "../../types";
 import { userMiddleware } from "../../middleware/user";
 import { prisma } from "@metaverse/db/prisma";
@@ -57,10 +59,10 @@ spaceRouter.post("/", userMiddleware, async (req, res) => {
         },
       });
       await prisma.spaceElements.createMany({
-        data: myMap.mapElements.map((elm) => ({
+        data: myMap.mapElements.map((elm: SpaceElement) => ({
           elementId: elm.elementId,
           spaceId: createMySpace.id,
-          x: elm.x!, //might throw error in future
+          x: elm.x! as number, //might throw error in future
           y: elm.y as number, //might throw error in future
         })),
       });
@@ -121,7 +123,7 @@ spaceRouter.get("/all", userMiddleware, async (req, res) => {
       },
     });
     res.status(201).json({
-      "My Spaces": mySpaces.map((space) => ({
+      "My Spaces": mySpaces.map((space: Space) => ({
         id: space.id,
         name: space.name,
         dimension: `${space.width}x${space.height}`,
@@ -223,16 +225,16 @@ spaceRouter.get("/:spaceId", userMiddleware, async (req, res) => {
 
   res.status(200).json({
     dimensions: `${space?.width}x${space?.height}`,
-    space: space?.spaceElements.map((elm) => ({
+    space: space?.spaceElements.map((elm: SpaceElement) => ({
       id: elm.id,
       x: elm.x,
       y: elm.y,
       element: {
-        id: elm.element.id,
-        imageUrl: elm.element.imageUrl,
-        width: elm.element.width,
-        height: elm.element.height,
-        static: elm.element.static,
+        id: elm.element?.id,
+        imageUrl: elm.element?.imageUrl,
+        width: elm.element?.width,
+        height: elm.element?.height,
+        static: elm.element?.static,
       },
     })),
   });
