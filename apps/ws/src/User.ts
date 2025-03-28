@@ -1,9 +1,9 @@
+import "dotenv/config"
 import { WebSocket } from "ws";
 import { RoomManager } from "./RoomManager";
 import { OutgoingMessage } from "./types";
 import { prisma } from "@metaverse/db/prisma";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import { JWT_PASSWORD } from "./config";
 
 function getRandomString(length: number) {
   const characters =
@@ -41,7 +41,7 @@ export class User {
           // console.log("user receiverdfd");
           const spaceId = parsedData.payload.spaceId;
           const token = parsedData.payload.token;
-          const userId = (jwt.verify(token, JWT_PASSWORD) as JwtPayload).userId;
+          const userId = (jwt.verify(token, process.env.JWT_SECRET_USER!) as JwtPayload).userId;
           if (!userId) {
             this.ws.close();
             return;

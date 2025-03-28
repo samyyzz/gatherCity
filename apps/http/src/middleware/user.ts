@@ -1,6 +1,6 @@
+import "dotenv/config"
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET_USER } from "../config";
 
 export const userMiddleware = async (
   req: Request,
@@ -15,7 +15,7 @@ export const userMiddleware = async (
     return;
   }
   try {
-    const decoded = jwt.verify(token, JWT_SECRET_USER) as {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_USER!) as {
       role: string;
       userId: string;
     };

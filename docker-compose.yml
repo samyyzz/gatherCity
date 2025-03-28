@@ -1,0 +1,54 @@
+services:
+  postgres:
+    container_name: gatherDBContainer
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - gatherDBVolume:/var/lib/gatherDBVolume
+    environment:
+      - POSTGRES_DB=gatherDB
+      - POSTGRES_USERNAME=ASDasd123
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+
+  http:
+    container_name: httpContainer
+    ports:
+      - 3001:3001
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.http
+    env_file:
+      - .env
+    environment:
+      - JWT_SECRET_ADMIN=${JWT_SECRET_ADMIN}
+      - JWT_SECRET_USER=${JWT_SECRET_USER}
+    depends_on:
+      - postgres
+
+  ws:
+    container_name: wsContainer
+    ports:
+      - 8080:8080
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.ws
+    env_file:
+      - .env
+    environment:
+      - JWT_SECRET_USER=${JWT_SECRET_USER}
+    depends_on:
+      - postgres
+
+  frontend:
+    container_name: frontendContainer
+    ports:
+      - 80:80
+    build:
+      context: ./
+      dockerfile: ./docker/Dockerfile.frontend
+    depends_on:
+      - postgres
+
+volumes:
+  gatherDBVolume:

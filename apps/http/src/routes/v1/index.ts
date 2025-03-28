@@ -1,3 +1,4 @@
+import "dotenv/config"
 import { Router } from "express";
 import { userRouter } from "./user";
 import { adminRouter } from "./admin";
@@ -6,8 +7,6 @@ import { prisma } from "@metaverse/db/prisma";
 import { Avatar, Element, SigninSchema, SignupSchema } from "../../types";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET_USER } from "../../config";
-import { JWT_SECRET_ADMIN } from "../../config";
 
 export const router = Router();
 
@@ -60,9 +59,9 @@ router.post("/signin", async (req, res) => {
     }
 
     if (user.role == "Admin") {
-      JWT_SECRET = JWT_SECRET_ADMIN;
+      JWT_SECRET = process.env.JWT_SECRET_ADMIN!;
     } else {
-      JWT_SECRET = JWT_SECRET_USER;
+      JWT_SECRET = process.env.JWT_SECRET_USER!;
     }
 
     const isValid = await bcrypt.compare(
