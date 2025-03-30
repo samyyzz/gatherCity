@@ -10,7 +10,7 @@
     "db:generate": "cd packages/db && npx prisma generate && cd ../..",
     "start:http": "cd apps/http && npm run start",
     "start:ws": "cd apps/ws && npm run start",
-    "start:frontend": "cd apps/frontend && npm run start"
+    "start:frontend": "cd apps/frontend && npm run dev"
   },
   "devDependencies": {
     "prettier": "^3.5.0",
