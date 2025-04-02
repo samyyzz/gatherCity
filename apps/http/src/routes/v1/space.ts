@@ -4,6 +4,7 @@ import {
   CreateSpaceSchema,
   DeleteElementSchema,
   Space,
+  DefaultElements,
   SpaceElement,
 } from "../../types";
 import { userMiddleware } from "../../middleware/user";
@@ -59,9 +60,9 @@ spaceRouter.post("/", userMiddleware, async (req, res) => {
         },
       });
       await prisma.spaceElements.createMany({
-        data: myMap.mapElements.map((elm: SpaceElement) => ({
-          elementId: elm.elementId,
+        data: myMap.mapElements.map((elm: DefaultElements) => ({
           spaceId: createMySpace.id,
+          elementId: elm.elementId,
           x: elm.x! as number, //might throw error in future
           y: elm.y as number, //might throw error in future
         })),

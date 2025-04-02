@@ -11,30 +11,37 @@ declare global {
 
 export interface Avatar {
   id: string;
-  name: string;
-  imageUrl: string;
+  name: string | null;
+  imageUrl: string | null;
 }
 
 export interface Element {
   id: string;
   height: number;
   width: number;
-  static: string;
+  static: boolean;
   imageUrl: string;
+}
+
+export interface DefaultElements {
+  id: string;
+  elementId: string;
+  mapId: string;
+  x: number | null;
+  y: number | null;
+  element?: Element;
 }
 
 export interface SpaceElement {
   id: string;
-  elementId: string;
-  spaceId: string;
   x: number;
   y: number;
-  element?: Element;
+  element: Element
 }
 export interface Metadata {
   avatar: {
-    id: string
-  };
+    id: string 
+  } | null;
   id: string;
 }
 export interface Space {
@@ -42,7 +49,7 @@ export interface Space {
   name: string;
   width: number;
   height: number;
-  thumbnail: string;
+  thumbnail: string | null;
 }
 
 export const SignupSchema = z.object({
